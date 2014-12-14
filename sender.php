@@ -72,18 +72,18 @@
 		$Name_generator = "submits/".$studentID."_".$file_name."_".$data.".".$file_ext;
 		move_uploaded_file($file_temp, $Name_generator);
 		echo $Name_generator;
-		// if (mail($email,$subject,null,$headers)) {
-		// 	echo "<center><h1>Darbas priimtas</center></h1>";
-		// };
-		// try {
-		// $handler = new PDO('mysql:host=127.0.0.1;dbname=students','root','password');
-		// $handler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		// } catch (PDOException $e) {
-		// 	die("<center><h1>Problema su duomenų bazė, Bandykite vėliau.</center></h1>");
-		// }
-		// $sql = "INSERT INTO submits (studentID,code,data) VALUES(?,?,?)";
-		// $prep_query = $handler->prepare($sql);
-		// $prep_query->execute(array($studentID,$stCode,$data));
+		if (mail($email,$subject,null,$headers)) {
+			echo "<center><h1>Darbas priimtas</center></h1>";
+		};
+		try {
+		$handler = new PDO('mysql:host=127.0.0.1;dbname=students','root','password');
+		$handler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		} catch (PDOException $e) {
+			die("<center><h1>Problema su duomenų bazė, Bandykite vėliau.</center></h1>");
+		}
+		$sql = "INSERT INTO submits (studentID,code,data) VALUES(?,?,?)";
+		$prep_query = $handler->prepare($sql);
+		$prep_query->execute(array($studentID,$stCode,$data));
 	}else{
 		echo "<center><h1> Netinkamas failo formatas </center></h1>";
 	}
